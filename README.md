@@ -6,5 +6,9 @@ This script currently works for converting [MAPS](https://github.com/ijuric/MAPS
 
 ## To run:
 ```
-bedpe2tabix.sh bedpe_filename tabix_filename
+Rscript bedpe2tabix.R bedpe_filename tabix_filename
+```
+or
+```
+R CMD BATCH bedpe2tabix.R '--args bedpe_filename tabix_filename'
 ```
