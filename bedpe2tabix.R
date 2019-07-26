@@ -8,17 +8,19 @@ parser$add_argument('-s', '--score', type="character", help='column name for the
 #parser$print_help()
 
 args <- parser$parse_args()
-
 bedpe <- args$bedpe
 tabix_filename <- args$tabix
 score_column <- args$score
-print(score_column)
+
+
+#print(score_column)
+#epsilon <- 0.0000001
 #quit()
 d <- read.csv(bedpe, sep = "\t")
 colnames(d)[1:6] <- c("chr1", "start1", "end1", "chr2", "start2", "end2")
 #head(d)
 #print(d$score)
-d$score <- -log(as.numeric(as.character(d[,score_columns])))
+d$score <- -log(as.numeric(as.character((d[,score_column]))))
 #head(d)
 #exit()
 #d <- d[complete.cases(d),]
