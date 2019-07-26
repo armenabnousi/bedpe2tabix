@@ -1,12 +1,26 @@
-args <- commandArgs(trailingOnly = TRUE)
-print(args)
-bedpe <- args[1]
-tabix_filename <- args[2]
+library(argparse)
+
+parser <- parser <- ArgumentParser(description='Generate tabix file from bedpe-like files')
+parser$add_argument('-i', '--bedpe', type="character", help='input bedpe file')
+parser$add_argument('-t', '--tabix', type="character", help='output tabix filename')
+parser$add_argument('-s', '--score', type="character", help='column name for the score data, default = fdr', default = "fdr")
+
+#parser$print_help()
+
+args <- parser$parse_args()
+
+bedpe <- args$bedpe
+tabix_filename <- args$tabix
+score_column <- args$score
+print(score_column)
 #quit()
 d <- read.csv(bedpe, sep = "\t")
-head(d)
+colnames(d)[1:6] <- c("chr1", "start1", "end1", "chr2", "start2", "end2")
+#head(d)
 #print(d$score)
-d$score <- -log(as.numeric(as.character(d$fdr)))
+d$score <- -log(as.numeric(as.character(d[,score_columns])))
+#head(d)
+#exit()
 #d <- d[complete.cases(d),]
 #print(d$score)
 d$lr <- paste0(d$chr2, ":", d$start2, "-", d$end2, ",", d$score)
